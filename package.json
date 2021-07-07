@@ -1,0 +1,31 @@
+{
+  "name": "parsekino",
+  "version": "0.0.1",
+  "description": "Parse movies data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oo11o/kinopoisk-film-parse.git"
+  },
+  "keywords": [
+    "parse",
+    "nodejs",
+    "movies",
+    "kinopoisk"
+  ],
+  "author": "Vlad Imir",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/oo11o/kinopoisk-film-parse/issues"
+  },
+  "homepage": "https://github.com/oo11o/kinopoisk-film-parse#readme",
+  "dependencies": {
+    "init": "^0.1.2",
+    "jsdom": "^16.6.0",
+    "node-fetch": "^2.6.1",
+    "puppeteer": "^10.1.0"
+  }
+}
