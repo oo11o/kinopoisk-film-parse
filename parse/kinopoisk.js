@@ -20,11 +20,21 @@ class Kinopoisk{
         }
 
         const encyclopedia = this.parseEncyclopedia(dom.window.document.querySelectorAll('.styles_row__2ee6F'))
+        const actors = this.parseName(dom.window.document.querySelector('.styles_actors__2zt1j')
+            .querySelectorAll('.styles_root__-coRa '))
 
         return {
             'name': dom.window.document.querySelector('h1').textContent,
             'originalName': dom.window.document.querySelector('.styles_originalTitle__31aMS').textContent,
             'description': dom.window.document.querySelector('p.styles_paragraph__2Otvx').textContent,
+            'actors': actors,
+            'rate': {
+                'kinopoisk': dom.window.document.querySelector('a.film-rating-value').textContent,
+                'kinopoiskCount': dom.window.document.querySelector(' .styles_count__3hSWL').textContent,
+                'imdb': (dom.window.document.querySelector('span.styles_valueSection__19woS').textContent).split(' ')[1],
+                'imdbCount': dom.window.document.querySelector('.styles_count__3hSWL').textContent,
+            },
+
             'encyclopedia': encyclopedia,
 
         }
@@ -39,6 +49,18 @@ class Kinopoisk{
             })
         })
         return encyclopedia
+    }
+
+    static parseName(node){
+        const name = []
+        node.forEach((el) => {
+            name.push({
+                'name':  el.querySelector('a.styles_link__1dkjp').textContent,
+                'link': el.querySelector('a.styles_link__1dkjp').getAttribute('href'),
+            })
+        })
+        return name
+
     }
 }
 
