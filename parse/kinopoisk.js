@@ -7,13 +7,28 @@ class Kinopoisk{
     constructor(url) {
         this.url = url
     }
+    static async getSimilar(){
+        const domHtml = await Browser.getHtml(this.url+'/like')
+        const dom = new JSDOM(domHtml);
+
+        const  result = []
+
+        const similar = dom.window.document.querySelectorAll('.news')
+        similar.forEach((el) => {
+            result.push({
+                'name': el.querySelector('a').textContent,
+                'url':  el.querySelector('a').getAttribute('href')
+            })
+        })
+        return result
+    }
 
     static async getInfo(){
         const domHtml = await Browser.getHtml(this.url)
         const dom = new JSDOM(domHtml);
 
         if(dom.window.document.querySelector('.Text_typography_control-xxl')){
-            console.log(dom.window.document.querySelector('body').textContent)
+             console.log(dom.window.document.querySelector('body').textContent)
             return {
                 'error': 'Yandex has turned on the anti-robot'
             }
@@ -28,6 +43,7 @@ class Kinopoisk{
             'originalName': dom.window.document.querySelector('.styles_originalTitle__31aMS').textContent,
             'description': dom.window.document.querySelector('p.styles_paragraph__2Otvx').textContent,
             'actors': actors,
+            'poster': dom.window.document.querySelector('.film-poster').getAttribute('src'),
             'rate': {
                 'kinopoisk': dom.window.document.querySelector('a.film-rating-value').textContent,
                 'kinopoiskCount': dom.window.document.querySelector(' .styles_count__3hSWL').textContent,
