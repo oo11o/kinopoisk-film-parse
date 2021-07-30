@@ -48,7 +48,7 @@ class Kinopoisk{
                 'kinopoisk': dom.window.document.querySelector('a.film-rating-value').textContent,
                 'kinopoiskCount': dom.window.document.querySelector(' .styles_count__3hSWL').textContent,
                 'imdb': (dom.window.document.querySelector('span.styles_valueSection__19woS').textContent).split(' ')[1],
-                'imdbCount': dom.window.document.querySelector('.styles_count__3hSWL').textContent,
+                'imdbCount': dom.window.document.querySelector('.styles_count__gelnz').textContent,
             },
 
             'encyclopedia': encyclopedia,
