@@ -1,34 +1,37 @@
 const Browser = require("../browser/browser")
 const jsdom = require("jsdom")
-const { JSDOM } = jsdom
+const {JSDOM} = jsdom
 
-class Kinopoisk{
+class Kinopoisk {
 
     constructor(url) {
-        this.url = url
+        this.url = url,
+            this.dom = ''
     }
-    static async getSimilar(){
-        const domHtml = await Browser.getHtml(this.url+'/like')
+
+    static async getSimilar() {
+        const domHtml = await Browser.getHtml(this.url + '/like')
         const dom = new JSDOM(domHtml);
 
-        const  result = []
+        const result = []
 
         const similar = dom.window.document.querySelectorAll('.news')
         similar.forEach((el) => {
             result.push({
                 'name': el.querySelector('a').textContent,
-                'url':  el.querySelector('a').getAttribute('href')
+                'url': el.querySelector('a').getAttribute('href')
             })
         })
         return result
     }
 
-    static async getInfo(){
+    static async getInfo() {
         const domHtml = await Browser.getHtml(this.url)
         const dom = new JSDOM(domHtml);
+        this.dom = dom
 
-        if(dom.window.document.querySelector('.Text_typography_control-xxl')){
-             console.log(dom.window.document.querySelector('body').textContent)
+        if (dom.window.document.querySelector('.Text_typography_control-xxl')) {
+            console.log(dom.window.document.querySelector('body').textContent)
             return {
                 'error': 'Yandex has turned on the anti-robot'
             }
@@ -38,6 +41,7 @@ class Kinopoisk{
         const actors = this.parseName(dom.window.document.querySelector('.styles_actors__2zt1j')
             .querySelectorAll('.styles_root__-coRa '))
 
+
         return {
             'name': dom.window.document.querySelector('h1').textContent,
             'originalName': dom.window.document.querySelector('.styles_originalTitle__31aMS').textContent,
@@ -45,10 +49,10 @@ class Kinopoisk{
             'actors': actors,
             'poster': dom.window.document.querySelector('.film-poster').getAttribute('src'),
             'rate': {
-                'kinopoisk': dom.window.document.querySelector('a.film-rating-value').textContent,
-                'kinopoiskCount': dom.window.document.querySelector(' .styles_count__3hSWL').textContent,
-                'imdb': (dom.window.document.querySelector('span.styles_valueSection__19woS').textContent).split(' ')[1],
-                'imdbCount': dom.window.document.querySelector('.styles_count__gelnz').textContent,
+                'kinopoisk': this.checkRate('a.film-rating-value'),
+                'kinopoiskCount': this.checkRate(' .styles_count__3hSWL'),
+                'imdb': this.checkRate('span.styles_valueSection__19woS').split(' ')[1],
+                'imdbCount': this.checkRate('.styles_count__gelnz')
             },
 
             'encyclopedia': encyclopedia,
@@ -56,28 +60,42 @@ class Kinopoisk{
         }
 
     }
-    static parseEncyclopedia(node){
+
+    static parseEncyclopedia(node) {
         const encyclopedia = []
         node.forEach((el) => {
             encyclopedia.push({
-                'name':  el.querySelector('.styles_title__a0_0F').textContent,
+                'name': el.querySelector('.styles_title__a0_0F').textContent,
                 'value': el.querySelector('.styles_value__2F1uj').textContent,
             })
         })
         return encyclopedia
     }
 
-    static parseName(node){
+    static parseName(node) {
         const name = []
         node.forEach((el) => {
             name.push({
-                'name':  el.querySelector('a.styles_link__1dkjp').textContent,
+                'name': el.querySelector('a.styles_link__1dkjp').textContent,
                 'link': el.querySelector('a.styles_link__1dkjp').getAttribute('href'),
             })
         })
         return name
 
     }
+
+    static checkRate(selector) {
+        let result = ''
+
+        try {
+            result = this.dom.window.document.querySelector(selector).textContent
+        } catch {
+            result = ''
+        }
+
+        return result
+    }
+
 }
 
 
