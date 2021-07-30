@@ -1,28 +1,31 @@
-# Kinopoisk Films Parse (nodejs)
+# Kinopoisk Films Parse
 Parse data about movies on the site kinopoisk.ru
 
+## Install
+```
+npm install parsekino
+```
 ## Usage
 ```
-const Kinopoisk = require('./parse/kinopoisk')
+const  Kinopoisk = require('parsekino')
 
 async function start(url){
     Kinopoisk.url = url
-    const res = await Kinopoisk.getInfo(url)
-    console.log(res)
+    const result = await Kinopoisk.getInfo(url)
 }
 
 start('https://www.kinopoisk.ru/film/1048334/')
 ```
+
 ## Example
 ```
 index.js
 
-const Kinopoisk = require('./parse/kinopoisk')
+const  Kinopoisk = require('parsekino')
 
 async function start(url){
     Kinopoisk.url = url
-    const res = await Kinopoisk.getInfo(url)
-    console.log(res)
+    const result = await Kinopoisk.getInfo(url)
 }
 
 start('https://www.kinopoisk.ru/film/1048334/')
