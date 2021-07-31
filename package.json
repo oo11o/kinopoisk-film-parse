@@ -1,6 +1,6 @@
 {
   "name": "parsekino",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Parse movies data",
   "main": "index.js",
   "scripts": {
