@@ -44,15 +44,15 @@ class Kinopoisk {
 
         return {
             'name': dom.window.document.querySelector('h1').textContent,
-            'originalName': dom.window.document.querySelector('.styles_originalTitle__31aMS').textContent,
+            'originalName': this.checkContent('.styles_originalTitle__31aMS'),
             'description': dom.window.document.querySelector('p.styles_paragraph__2Otvx').textContent,
             'actors': actors,
             'poster': dom.window.document.querySelector('.film-poster').getAttribute('src'),
             'rate': {
-                'kinopoisk': this.checkRate('a.film-rating-value'),
-                'kinopoiskCount': this.checkRate(' .styles_count__3hSWL'),
-                'imdb': this.checkRate('span.styles_valueSection__19woS').split(' ')[1],
-                'imdbCount': this.checkRate('.styles_count__gelnz')
+                'kinopoisk': this.checkContent('a.film-rating-value'),
+                'kinopoiskCount': this.checkContent(' .styles_count__3hSWL'),
+                'imdb': this.checkContent('span.styles_valueSection__19woS').split(' ')[1],
+                'imdbCount': this.checkContent('.styles_count__gelnz')
             },
 
             'encyclopedia': encyclopedia,
@@ -84,7 +84,7 @@ class Kinopoisk {
 
     }
 
-    static checkRate(selector) {
+    static checkContent(selector) {
         let result = ''
 
         try {
