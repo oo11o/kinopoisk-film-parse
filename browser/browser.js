@@ -22,7 +22,7 @@ class Browser{
                 });
     }
 
-    static async getHtml(url){
+    static async getHtml(url,scr){
         const args = [
             '--no-sandbox',
             '--disable-setuid-sandbox',
@@ -48,6 +48,13 @@ class Browser{
         })
 
         await page.goto(url)
+        await page.waitForTimeout(2000)
+
+
+        if(scr == true){
+            await page.screenshot({ path: 'example.png' });
+        }
+
         const bodyHTML = await page.evaluate(() => {return document.body.innerHTML})
         await browser.close()
 

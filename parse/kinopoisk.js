@@ -4,9 +4,11 @@ const {JSDOM} = jsdom
 
 class Kinopoisk {
 
-    constructor(url) {
+    constructor(url,scr = false) {
         this.url = url,
-            this.dom = ''
+        this.dom = '',
+        this.scr = scr
+
     }
 
     static async getSimilar() {
@@ -25,8 +27,8 @@ class Kinopoisk {
         return result
     }
 
-    static async getInfo() {
-        const domHtml = await Browser.getHtml(this.url)
+    static async getInfo(scr = false) {
+        const domHtml = await Browser.getHtml(this.url, this.scr)
         const dom = new JSDOM(domHtml);
         this.dom = dom
 
