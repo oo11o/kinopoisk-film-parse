@@ -38,8 +38,7 @@ class Kinopoisk {
         }
 
         const encyclopedia = this.parseEncyclopedia(dom.window.document.querySelectorAll('.styles_row__2ee6F'))
-        const actors = this.parseName(dom.window.document.querySelector('.styles_actors__2zt1j')
-            .querySelectorAll('.styles_root__-coRa '))
+        const actors = this.checkActors()
 
 
         return {
@@ -89,6 +88,19 @@ class Kinopoisk {
 
         try {
             result = this.dom.window.document.querySelector(selector).textContent
+        } catch {
+            result = ''
+        }
+
+        return result
+    }
+
+    static checkActors(){
+        let result = ''
+
+        try {
+            result = this.parseName(dom.window.document.querySelector('.styles_actors__2zt1j')
+                .querySelectorAll('.styles_root__-coRa '))
         } catch {
             result = ''
         }

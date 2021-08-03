@@ -48,7 +48,6 @@ class Browser{
         })
 
         await page.goto(url)
-
         const bodyHTML = await page.evaluate(() => {return document.body.innerHTML})
         await browser.close()
 
