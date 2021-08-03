@@ -101,7 +101,7 @@ class Kinopoisk {
         let result = ''
 
         try {
-            result = this.parseName(dom.window.document.querySelector('.styles_actors__2zt1j')
+            result = this.parseName(this.dom.window.document.querySelector('.styles_actors__2zt1j')
                 .querySelectorAll('.styles_root__-coRa '))
         } catch {
             result = ''
