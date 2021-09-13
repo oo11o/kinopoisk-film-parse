@@ -4,9 +4,11 @@ const {JSDOM} = jsdom
 
 class Kinopoisk {
 
-    constructor(url) {
+    constructor(url,scr = false) {
         this.url = url,
-            this.dom = ''
+        this.dom = '',
+        this.scr = scr
+
     }
 
     static async getSimilar() {
@@ -25,8 +27,8 @@ class Kinopoisk {
         return result
     }
 
-    static async getInfo() {
-        const domHtml = await Browser.getHtml(this.url)
+    static async getInfo(scr = false) {
+        const domHtml = await Browser.getHtml(this.url, this.scr)
         const dom = new JSDOM(domHtml);
         this.dom = dom
 
@@ -38,16 +40,28 @@ class Kinopoisk {
         }
 
         const encyclopedia = this.parseEncyclopedia(dom.window.document.querySelectorAll('.styles_row__2ee6F'))
-        const actors = this.parseName(dom.window.document.querySelector('.styles_actors__2zt1j')
-            .querySelectorAll('.styles_root__-coRa '))
+        const actors = this.checkActors()
 
+        let description = ''
+        if(dom.window.document.querySelector('p.styles_paragraph__2Otvx')){
+            description = dom.window.document.querySelector('p.styles_paragraph__2Otvx').textContent
+        }
+
+        let year = ''
+        for (let element of encyclopedia) {
+            if(element.name === 'Год производства'){
+                year = parseInt(element.value)
+                break
+            }
+        }
 
         return {
             'name': dom.window.document.querySelector('h1').textContent,
             'originalName': this.checkContent('.styles_originalTitle__31aMS'),
-            'description': dom.window.document.querySelector('p.styles_paragraph__2Otvx').textContent,
+            'description': description,
             'actors': actors,
             'poster': dom.window.document.querySelector('.film-poster').getAttribute('src'),
+            'year': year,
             'rate': {
                 'kinopoisk': this.checkContent('a.film-rating-value'),
                 'kinopoiskCount': this.checkContent(' .styles_count__3hSWL'),
@@ -89,6 +103,19 @@ class Kinopoisk {
 
         try {
             result = this.dom.window.document.querySelector(selector).textContent
+        } catch {
+            result = ''
+        }
+
+        return result
+    }
+
+    static checkActors(){
+        let result = ''
+
+        try {
+            result = this.parseName(this.dom.window.document.querySelector('.styles_actors__2zt1j')
+                .querySelectorAll('.styles_root__-coRa '))
         } catch {
             result = ''
         }

@@ -1,6 +1,6 @@
 {
   "name": "parsekino",
-  "version": "0.1.7",
+  "version": "0.1.11",
   "description": "Parse movies data",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/oo11o/kinopoisk-film-parse#readme",
   "dependencies": {
     "init": "^0.1.2",
-    "jsdom": "^16.6.0",
+    "jsdom": "^16.7.0",
     "node-fetch": "^2.6.1",
     "puppeteer": "^10.1.0"
   }

@@ -103,11 +103,13 @@ dist
 
 # TernJS port file
 .tern-port
+#Test
 
 #phpShtorm
 .idea
 .idea/
 
-#test
+#testing
 indexTest.js
+example.png
 
