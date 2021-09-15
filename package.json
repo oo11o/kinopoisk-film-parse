@@ -1,6 +1,6 @@
 {
   "name": "parsekino",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Parse movies data",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,7 @@
   "dependencies": {
     "init": "^0.1.2",
     "jsdom": "^16.7.0",
-    "node-fetch": "^2.6.1",
-    "puppeteer": "^10.1.0"
+    "node-fetch": "^2.6.2",
+    "puppeteer": "^10.2.0"
   }
 }

@@ -55,12 +55,17 @@ class Kinopoisk {
             }
         }
 
+        let poster = ''
+        if(dom.window.document.querySelector('.film-poster')){
+            poster = dom.window.document.querySelector('.film-poster').getAttribute('src');
+        }
+
         return {
             'name': dom.window.document.querySelector('h1').textContent,
             'originalName': this.checkContent('.styles_originalTitle__31aMS'),
             'description': description,
             'actors': actors,
-            'poster': dom.window.document.querySelector('.film-poster').getAttribute('src'),
+            'poster': poster,
             'year': year,
             'rate': {
                 'kinopoisk': this.checkContent('a.film-rating-value'),
