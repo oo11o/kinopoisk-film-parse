@@ -1,4 +1,4 @@
-# DEPRECATED (Kinopoisk Films Parse)
+# WARNING: THIS PROJECT IS DEPRECATED
 Parse data about movies on the site kinopoisk.ru
 
 ## Install
