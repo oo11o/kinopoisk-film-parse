@@ -1,5 +1,5 @@
 # WARNING: THIS PROJECT IS DEPRECATED
-Parse data about movies on the site kinopoisk.ru
+This project is deprecated
 
 ## Install
 ```
